@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const BG_IMAGES = [
+  '/resources/Background/Glass Flower.webp',
   '/resources/Background/BONSAIIIIIIIIIII1.webp',
   '/resources/Background/Bot.webp',
   '/resources/Background/CBroadside_155.webp',
   '/resources/Background/Desktop.webp',
-  '/resources/Background/Glass Flower.webp',
   '/resources/Background/JewelledSpider.webp',
   '/resources/Background/LuxPoolside.webp',
   '/resources/Background/Planet.webp',
