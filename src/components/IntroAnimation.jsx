@@ -36,7 +36,7 @@ export default function IntroAnimation({ onComplete }) {
             playsInline
             onEnded={startFadeOut}
             onError={startFadeOut} // immediately close on error
-            className="w-full h-full object-cover lg:object-contain object-center"
+            className="w-full h-full object-cover object-center"
           />
         </motion.div>
       )}
