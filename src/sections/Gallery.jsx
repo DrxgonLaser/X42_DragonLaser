@@ -16,7 +16,6 @@ const IMAGES = [
   '/resources/Gallery/Brix2.webp',
   '/resources/Gallery/CBroadside_155.webp',
   '/resources/Gallery/Captured Worlds.webp',
-  '/resources/Gallery/Clouds V4.webp',
   '/resources/Gallery/Concrete1Finished.webp',
   '/resources/Gallery/ConcreteFinished.webp',
   '/resources/Gallery/Desktop.webp',
@@ -111,7 +110,7 @@ function LightboxModal({ item, onClose, onPrev, onNext }) {
               onClick={onPrev} 
               onMouseEnter={() => enterElement('hover')}
               onMouseLeave={leaveElement}
-              className="text-light hover:text-[#CC44FF] font-mono text-sm tracking-widest uppercase transition-colors"
+              className="text-light hover:text-[#9200FF] font-mono text-sm tracking-widest uppercase transition-colors"
             >
               PREV
             </button>
@@ -119,7 +118,7 @@ function LightboxModal({ item, onClose, onPrev, onNext }) {
               onClick={onNext} 
               onMouseEnter={() => enterElement('hover')}
               onMouseLeave={leaveElement}
-              className="text-light hover:text-[#CC44FF] font-mono text-sm tracking-widest uppercase transition-colors"
+              className="text-light hover:text-[#9200FF] font-mono text-sm tracking-widest uppercase transition-colors"
             >
               NEXT
             </button>
@@ -129,7 +128,7 @@ function LightboxModal({ item, onClose, onPrev, onNext }) {
         {/* Info footer */}
         <div className="absolute bottom-8 right-8 mix-blend-difference pointer-events-none text-right">
           <p className="font-sans text-xs sm:text-base font-bold text-light uppercase tracking-widest">{item.name}</p>
-          <p className="font-mono text-[9px] tracking-[0.2em] uppercase mt-1" style={{ color: '#CC44FF' }}>
+          <p className="font-mono text-[9px] tracking-[0.2em] uppercase mt-1" style={{ color: '#9200FF' }}>
             {item.type === 'video' ? 'Motion Graphic' : 'Still Render'}
           </p>
         </div>

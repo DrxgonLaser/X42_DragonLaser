@@ -6,6 +6,7 @@ import Navbar           from './components/Navbar'
 import LaserBackground  from './components/LaserBackground'
 import IrisShutter      from './components/IrisShutter'
 import PageTransition   from './components/PageTransition'
+import IntroAnimation   from './components/IntroAnimation'
 
 import Hero    from './sections/Hero'
 import Gallery from './sections/Gallery'
@@ -63,8 +64,16 @@ function Layout() {
 }
 
 export default function App() {
+  const [showIntro, setShowIntro] = useState(() => !sessionStorage.getItem('introPlayed'))
+
+  const handleIntroComplete = () => {
+    sessionStorage.setItem('introPlayed', 'true')
+    setShowIntro(false)
+  }
+
   return (
     <CursorProvider>
+      {showIntro && <IntroAnimation onComplete={handleIntroComplete} />}
       <BrowserRouter>
         <Layout />
       </BrowserRouter>

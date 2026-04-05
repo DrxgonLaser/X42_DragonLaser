@@ -71,14 +71,14 @@ export default function About() {
               animate={{ rotate: 360 }}
               transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
               className="absolute inset-0 rounded-full"
-              style={{ border: '1px solid', borderColor: '#38173A' }}
+              style={{ border: '1px solid', borderColor: '#1D0033' }}
             />
             {/* Inner ring */}
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
               className="absolute inset-8 rounded-full"
-              style={{ border: '1px solid', borderColor: '#6A1F78' }}
+              style={{ border: '1px solid', borderColor: '#4A0080' }}
             />
             {/* Center content */}
             <div className="relative z-10 flex flex-col items-center gap-1">
@@ -86,7 +86,7 @@ export default function About() {
                 className="w-16 h-16 object-contain"
                 style={{ filter: 'drop-shadow(0 0 14px rgba(204,68,255,0.6))' }}
               />
-              <span className="tag" style={{ color: '#6A1F78' }}>DL</span>
+              <span className="tag" style={{ color: '#4A0080' }}>DL</span>
             </div>
             {/* Orbiting dot */}
             <motion.div
@@ -95,7 +95,7 @@ export default function About() {
               className="absolute inset-0"
             >
               <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full"
-                style={{ background: '#CC44FF', boxShadow: '0 0 8px #CC44FF' }}
+                style={{ background: '#9200FF', boxShadow: '0 0 8px #9200FF' }}
               />
             </motion.div>
           </div>

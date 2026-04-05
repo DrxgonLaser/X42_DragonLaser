@@ -10,11 +10,11 @@ export default {
       colors: {
         bg:      '#070308',
         surface: '#0F0612',
-        dp:      '#38173A',   // deep purple base
-        mid:     '#6A1F78',   // mid purple
-        vivid:   '#A030C0',   // vibrant accent
-        electric:'#CC44FF',   // electric highlight
-        magenta: '#FF33CC',   // contrasting pop
+        dp:      '#1D0033',   // deep purple base
+        mid:     '#4A0080',   // mid purple
+        vivid:   '#9200FF',   // vibrant accent
+        electric:'#9200FF',   // electric highlight
+        magenta: '#9200FF',   // contrasting pop
         light:   '#EDE6F5',   // near-white
         muted:   '#7A6882',   // muted text
       },

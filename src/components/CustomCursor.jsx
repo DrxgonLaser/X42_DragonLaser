@@ -20,7 +20,7 @@ export default function CustomCursor() {
       width: 12,
       x: mousePosition.x - 6,
       y: mousePosition.y - 6,
-      backgroundColor: '#CC44FF',
+      backgroundColor: '#9200FF',
       mixBlendMode: 'screen'
     },
     hover: {
@@ -29,7 +29,7 @@ export default function CustomCursor() {
       x: mousePosition.x - 24,
       y: mousePosition.y - 24,
       backgroundColor: 'rgba(204, 68, 255, 0.1)',
-      border: '1px solid #CC44FF',
+      border: '1px solid #9200FF',
       backdropFilter: 'blur(2px)'
     },
     text: {
@@ -39,7 +39,7 @@ export default function CustomCursor() {
       y: mousePosition.y - 36,
       backgroundColor: 'rgba(7, 3, 8, 0.9)',
       border: '1px solid rgba(204, 68, 255, 0.3)',
-      color: '#CC44FF',
+      color: '#9200FF',
       fontSize: '10px'
     }
   }

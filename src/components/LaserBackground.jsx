@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-const LASER_COLORS = ['#CC44FF', '#A030C0', '#EE88FF', '#882299', '#ffffff']
+const LASER_COLORS = ['#9200FF', '#9200FF', '#EE88FF', '#882299', '#ffffff']
 
 function rand(a, b) { return Math.random() * (b - a) + a }
 function randInt(a, b) { return Math.floor(rand(a, b + 1)) }
@@ -15,13 +15,13 @@ function sidePoint(W, H) {
 class Spark {
   constructor(x, y, angle) {
     this.x   = x; this.y = y
-    const sp = rand(80, 200)
-    const spread = rand(-0.4, 0.4)
+    const sp = rand(150, 400)
+    const spread = rand(-1.5, 1.5)
     this.vx  = Math.cos(angle + spread) * sp
     this.vy  = Math.sin(angle + spread) * sp
     this.life  = 1
     this.decay = rand(1.5, 3.5)
-    this.w     = rand(0.3, 1.0)
+    this.w     = rand(1.5, 4.0)
   }
   update(dt) {
     this.x += this.vx * dt
@@ -37,7 +37,7 @@ class Spark {
     const py = this.y - this.vy * 0.05
     ctx.globalCompositeOperation = 'screen'
     ctx.globalAlpha = this.life * 0.8
-    ctx.strokeStyle = '#CC44FF'
+    ctx.strokeStyle = '#9200FF'
     ctx.lineWidth   = this.w
     ctx.lineCap     = 'round'
 

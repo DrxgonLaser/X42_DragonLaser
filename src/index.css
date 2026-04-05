@@ -20,13 +20,45 @@
 :root {
   --bg:       #070308;
   --surface:  #0F0612;
-  --dp:       #38173A;
-  --mid:      #6A1F78;
-  --vivid:    #A030C0;
-  --electric: #CC44FF;
-  --magenta:  #FF33CC;
+  --dp:       #1D0033;
+  --mid:      #4A0080;
+  --vivid:    #9200FF;
+  --electric: #9200FF;
+  --magenta:  #9200FF;
   --light:    #EDE6F5;
   --muted:    #7A6882;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--dp);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--electric);
+}
+
+/* High-End Text Selection */
+::selection {
+  background: var(--electric);
+  color: #fff;
+}
+
+/* Cinematic Film Grain Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.025; /* barely discernible texture */
 }
 
 html {

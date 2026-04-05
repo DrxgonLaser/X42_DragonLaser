@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCursor } from '../context/CursorContext'
 
 const socials = [
-  { label: 'YouTube', handle: 'DragonLaser VFX', href: 'https://www.youtube.com/channel/UCAiSJdRiV8rw9eDZH9V8piA', color: '#A030C0' },
+  { label: 'YouTube', handle: 'DragonLaser VFX', href: 'https://www.youtube.com/channel/UCAiSJdRiV8rw9eDZH9V8piA', color: '#9200FF' },
 ]
 
 export default function Contact() {

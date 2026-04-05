@@ -56,7 +56,7 @@ export default function Hero() {
             backgroundImage: `url("${BG_IMAGES[bgIndex]}")`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            filter: 'grayscale(60%) brightness(0.55)',
+            filter: 'brightness(0.55)',
           }}
         />
       </AnimatePresence>
@@ -82,7 +82,7 @@ export default function Hero() {
           {/* Tag */}
           <span
             className="font-mono text-[10px] tracking-[0.2em] uppercase"
-            style={{ color: '#CC44FF' }}
+            style={{ color: '#9200FF' }}
           >
             VFX · 3D · Motion
           </span>
@@ -100,7 +100,7 @@ export default function Hero() {
             className="font-sans text-sm leading-relaxed"
             style={{ color: 'rgba(200,185,215,0.75)', maxWidth: 280 }}
           >
-            Cinematic VFX & digital art — building worlds from scratch.
+            Cinematic VFX & digital art.
           </p>
 
           {/* CTAs */}
@@ -126,8 +126,8 @@ export default function Hero() {
               width:  i === bgIndex ? 20 : 5,
               height: 5,
               borderRadius: 3,
-              background: i === bgIndex ? '#CC44FF' : 'rgba(255,255,255,0.2)',
-              boxShadow: i === bgIndex ? '0 0 6px #CC44FF' : 'none',
+              background: i === bgIndex ? '#9200FF' : 'rgba(255,255,255,0.2)',
+              boxShadow: i === bgIndex ? '0 0 6px #9200FF' : 'none',
               transition: 'all 0.3s',
               border: 'none',
               cursor: 'pointer',

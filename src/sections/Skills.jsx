@@ -91,7 +91,7 @@ export default function Skills() {
                 key={tool}
                 onMouseEnter={() => enterElement('hover')}
                 onMouseLeave={leaveElement}
-                className="px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-light border border-white/10 rounded-full hover:border-[#CC44FF] hover:text-[#CC44FF] transition-all duration-300 backdrop-blur-md cursor-none"
+                className="px-4 py-2 font-mono text-[10px] tracking-widest uppercase text-light border border-white/10 rounded-full hover:border-[#9200FF] hover:text-[#9200FF] transition-all duration-300 backdrop-blur-md cursor-none"
                 style={{ background: 'rgba(255,255,255,0.02)' }}
               >
                 {tool}

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-const N_BLADES   = 7
-const CLOSE_MS   = 550
-const OPEN_MS    = 550
+const N_BLADES   = 12
+const CLOSE_MS   = 650
+const OPEN_MS    = 600
 
 export default function IrisShutter({ isActive, onMidpoint }) {
   const canvasRef = useRef(null)
@@ -26,74 +26,121 @@ export default function IrisShutter({ isActive, onMidpoint }) {
     const cx = W / 2, cy = H / 2
     const DIAG = Math.hypot(W, H)
 
+    // Pre-calculate the cyber-grid texture once
+    const patCanvas = document.createElement('canvas')
+    patCanvas.width = 24
+    patCanvas.height = 24
+    const pCtx = patCanvas.getContext('2d')
+    pCtx.fillStyle = '#0a0012' // Super deep base
+    pCtx.fillRect(0,0,24,24)
+    // Micro wireframe
+    pCtx.fillStyle = 'rgba(74, 0, 128, 0.15)'
+    pCtx.fillRect(0, 0, 1, 24)
+    pCtx.fillRect(0, 0, 24, 1)
+    // Intersection glowing diode
+    pCtx.fillStyle = 'rgba(138, 0, 255, 0.3)'
+    pCtx.fillRect(0, 0, 2, 2)
+
     let startTime = null
     let midpointFired = false
     let phase = 'closing'
 
     function easeCubic(t) {
-      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      // Upgraded to extremely intense Expo easing for a mechanical "snap"
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
     }
 
     function drawBlades(ctx, progress) {
+      // Clear with slight trailing ghost alpha
+      ctx.globalCompositeOperation = 'source-over'
       ctx.clearRect(0, 0, W, H)
+
+      const techPattern = ctx.createPattern(patCanvas, 'repeat')
 
       for (let i = 0; i < N_BLADES; i++) {
         const baseAngle = (i * 2 * Math.PI) / N_BLADES
+        // The distance d scales down as progress approaches 1
         const d = DIAG * 0.55 * (1 - progress)
-        const rot = baseAngle + (1 - progress) * (Math.PI / 2)
+        const rot = baseAngle + (1 - progress) * (Math.PI / 1.5) // Increased rotation torque
 
         ctx.save()
         ctx.translate(cx, cy)
         ctx.rotate(rot)
 
-        // Blade gradient — deep black core, subtle steel edge
-        const grad = ctx.createLinearGradient(0, d, 0, DIAG)
-        grad.addColorStop(0,   'rgba(12, 6, 14, 0.98)')
-        grad.addColorStop(0.3, 'rgba(8,  3,  9, 0.99)')
-        grad.addColorStop(1,   'rgba(4,  1,  5, 1.00)')
-
+        // Generate blade path
         ctx.beginPath()
         ctx.moveTo(-DIAG, d)
         ctx.lineTo(DIAG,  d)
         ctx.lineTo(DIAG,  DIAG)
         ctx.lineTo(-DIAG, DIAG)
         ctx.closePath()
-        ctx.fillStyle = grad
-        ctx.fill()
 
-        // Inner edge — thin sharp line, brighter as it closes
-        const edgeAlpha = Math.min(progress * 1.4, 1)
+        // Apply grid texture fill with parallax (matrix reset so pattern doesn't rotate)
+        ctx.save()
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.fillStyle = techPattern
+        ctx.globalAlpha = 0.98
+        ctx.fill()
+        ctx.restore()
+
+        // Inner glowing laser edge
+        // The "laser" runs along the exact closing lip (-DIAG, d) to (DIAG, d)
         ctx.beginPath()
         ctx.moveTo(-DIAG, d)
         ctx.lineTo(DIAG,  d)
-        ctx.strokeStyle = `rgba(180, 100, 220, ${edgeAlpha * 0.55})`
-        ctx.lineWidth = 0.8
+        
+        ctx.globalCompositeOperation = 'screen'
+        
+        // Intense optical bloom core
+        ctx.strokeStyle = '#ffffff'
+        ctx.lineWidth = 1
+        ctx.globalAlpha = Math.min(progress * 1.5, 1)
+        ctx.stroke()
+        
+        // Outer magenta/purple neon spread
+        ctx.strokeStyle = '#9200FF'
+        ctx.lineWidth = 4 + (progress * 6)
+        ctx.globalAlpha = Math.min(progress * 0.8, 0.8)
         ctx.stroke()
 
-        // Outer subtle glow line
-        ctx.beginPath()
-        ctx.moveTo(-DIAG, d + 1)
-        ctx.lineTo(DIAG,  d + 1)
-        ctx.strokeStyle = `rgba(204, 68, 255, ${edgeAlpha * 0.18})`
-        ctx.lineWidth = 3
+        // Ultra wide faint background glow
+        ctx.strokeStyle = '#4A0080'
+        ctx.lineWidth = 15 + (progress * 10)
+        ctx.globalAlpha = Math.min(progress * 0.3, 0.3)
         ctx.stroke()
 
         ctx.restore()
       }
 
-      // Small centre flare when fully closed
-      if (progress > 0.95) {
-        const glowP = (progress - 0.95) / 0.05
+      // Singularity Flash at the exact center when blades converge
+      if (progress > 0.85) {
+        const glowP = (progress - 0.85) / 0.15
         ctx.save()
-        ctx.globalCompositeOperation = 'lighter'
-        const r = 60 * glowP
-        const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r)
-        grd.addColorStop(0, `rgba(204, 68, 255, ${0.25 * glowP})`)
+        ctx.translate(cx, cy)
+        ctx.globalCompositeOperation = 'screen'
+        
+        const r = DIAG * 0.4 * glowP
+        const grd = ctx.createRadialGradient(0, 0, 0, 0, 0, r)
+        grd.addColorStop(0, `rgba(255, 255, 255, ${glowP})`)
+        grd.addColorStop(0.1, `rgba(181, 0, 255, ${glowP * 0.8})`)
+        grd.addColorStop(0.5, `rgba(138, 0, 255, ${glowP * 0.3})`)
         grd.addColorStop(1, 'transparent')
+        
         ctx.fillStyle = grd
+        // Add a slight rotation to the singularity burst
+        ctx.rotate(progress * Math.PI)
+        
+        // Extremely thin, razor-sharp starburst effect
         ctx.beginPath()
-        ctx.arc(cx, cy, r, 0, Math.PI * 2)
+        ctx.ellipse(0, 0, r, r * 0.015, 0, 0, Math.PI * 2)
+        ctx.ellipse(0, 0, r * 0.015, r, 0, 0, Math.PI * 2)
         ctx.fill()
+        
+        // Core expanding circle (much smaller, tighter core)
+        ctx.beginPath()
+        ctx.arc(0, 0, r * 0.08, 0, Math.PI * 2)
+        ctx.fill()
+        
         ctx.restore()
       }
     }
@@ -101,7 +148,7 @@ export default function IrisShutter({ isActive, onMidpoint }) {
     function tick(ts) {
       if (startTime === null) startTime = ts
       const elapsed = ts - startTime
-      const ctx = canvas.getContext('2d')
+      const ctx = canvas.getContext('2d', { alpha: true })
 
       if (phase === 'closing') {
         const rawP = Math.min(elapsed / CLOSE_MS, 1)

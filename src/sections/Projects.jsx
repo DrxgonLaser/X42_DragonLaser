@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const projects = [
-  { id:1, title:'Nebula Storm',      cat:'Film VFX',         desc:'Hyper-realistic space nebula sequence for an indie sci-fi feature using Houdini fluid dynamics.',    tags:['Houdini','Nuke','VFX'],          color:'#CC44FF' },
-  { id:2, title:'Chromatic Pulse',   cat:'Motion Graphics',  desc:'Reactive brand identity reveal for a global tech company — pulse animations synced to audio data.', tags:['After Effects','Cinema 4D'],     color:'#A030C0' },
-  { id:3, title:'Dragon Fire VFX',   cat:'Game Cinematic',   desc:'Real-time fire & smoke for an AAA game cinematic trailer using Niagara particle systems.',           tags:['Unreal Engine','Niagara'],       color:'#FF33CC' },
-  { id:4, title:'Neon Metropolis',   cat:'Digital Art',      desc:'Procedurally generated cyberpunk cityscape with volumetric atmospheric lighting.',                   tags:['Blender','Cycles'],             color:'#CC44FF' },
-  { id:5, title:'Quantum Glitch',    cat:'Experimental',     desc:'Generative data-driven art installation exploring chaos theory via real-time GLSL shaders.',         tags:['TouchDesigner','GLSL'],         color:'#A030C0' },
-  { id:6, title:'Eclipse Sequence',  cat:'Commercial VFX',   desc:'Award-winning VFX sequence blending practical photography with digital environments.',               tags:['Nuke','DaVinci'],               color:'#FF33CC' },
+  { id:1, title:'Nebula Storm',      cat:'Film VFX',         desc:'Hyper-realistic space nebula sequence for an indie sci-fi feature using Houdini fluid dynamics.',    tags:['Houdini','Nuke','VFX'],          color:'#9200FF' },
+  { id:2, title:'Chromatic Pulse',   cat:'Motion Graphics',  desc:'Reactive brand identity reveal for a global tech company — pulse animations synced to audio data.', tags:['After Effects','Cinema 4D'],     color:'#9200FF' },
+  { id:3, title:'Dragon Fire VFX',   cat:'Game Cinematic',   desc:'Real-time fire & smoke for an AAA game cinematic trailer using Niagara particle systems.',           tags:['Unreal Engine','Niagara'],       color:'#9200FF' },
+  { id:4, title:'Neon Metropolis',   cat:'Digital Art',      desc:'Procedurally generated cyberpunk cityscape with volumetric atmospheric lighting.',                   tags:['Blender','Cycles'],             color:'#9200FF' },
+  { id:5, title:'Quantum Glitch',    cat:'Experimental',     desc:'Generative data-driven art installation exploring chaos theory via real-time GLSL shaders.',         tags:['TouchDesigner','GLSL'],         color:'#9200FF' },
+  { id:6, title:'Eclipse Sequence',  cat:'Commercial VFX',   desc:'Award-winning VFX sequence blending practical photography with digital environments.',               tags:['Nuke','DaVinci'],               color:'#9200FF' },
 ]
 
 const card = {
@@ -48,8 +48,8 @@ export default function Projects() {
             <button key={c} onClick={() => setFilter(c)}
               className="font-mono text-xs tracking-widest uppercase px-3 py-1.5 border transition-colors duration-200"
               style={{
-                borderColor: filter === c ? '#CC44FF' : '#38173A',
-                color:        filter === c ? '#CC44FF' : '#7A6882',
+                borderColor: filter === c ? '#9200FF' : '#1D0033',
+                color:        filter === c ? '#9200FF' : '#7A6882',
                 background:   filter === c ? 'rgba(204,68,255,0.07)' : 'transparent',
               }}
             >{c}</button>
@@ -71,7 +71,7 @@ export default function Projects() {
                 <p className="font-sans text-sm leading-relaxed" style={{ color: '#7A6882' }}>{p.desc}</p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {p.tags.map(t => (
-                    <span key={t} className="font-mono text-xs px-2 py-0.5 border border-[#38173A] text-[#4D3A52]">{t}</span>
+                    <span key={t} className="font-mono text-xs px-2 py-0.5 border border-[#1D0033] text-[#4D3A52]">{t}</span>
                   ))}
                 </div>
                 {/* Bottom accent */}

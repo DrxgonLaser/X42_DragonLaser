@@ -29,7 +29,7 @@ export default function Navbar({ onNav }) {
         className="fixed top-8 left-8 z-[100] flex items-center gap-3 group pointer-events-auto mix-blend-difference"
       >
         <span className="font-sans font-bold text-sm tracking-[0.2em] text-light">
-          DRAGON<span style={{ color: '#CC44FF' }}>LASER</span>
+          DRAGON<span style={{ color: '#9200FF' }}>LASER</span>
         </span>
       </motion.button>
 
@@ -40,12 +40,12 @@ export default function Navbar({ onNav }) {
         onClick={() => setIsOpen(true)}
         className="fixed top-8 right-8 z-[90] flex items-center gap-4 group pointer-events-auto mix-blend-difference"
       >
-        <span className="font-mono text-xs tracking-widest text-light uppercase group-hover:text-[#CC44FF] transition-colors">
+        <span className="font-mono text-xs tracking-widest text-light uppercase group-hover:text-[#9200FF] transition-colors">
           Menu
         </span>
         <div className="flex flex-col gap-[5px] items-end">
-          <div className="w-8 h-px bg-light group-hover:bg-[#CC44FF] transition-colors" />
-          <div className="w-5 h-px bg-light group-hover:bg-[#CC44FF] transition-colors" />
+          <div className="w-8 h-px bg-light group-hover:bg-[#9200FF] transition-colors" />
+          <div className="w-5 h-px bg-light group-hover:bg-[#9200FF] transition-colors" />
         </div>
       </motion.button>
 
@@ -68,12 +68,12 @@ export default function Navbar({ onNav }) {
               onClick={() => setIsOpen(false)}
               className="absolute top-8 right-8 flex items-center gap-4 group"
             >
-              <span className="font-mono text-xs tracking-widest text-light uppercase group-hover:text-[#CC44FF] transition-colors">
+              <span className="font-mono text-xs tracking-widest text-light uppercase group-hover:text-[#9200FF] transition-colors">
                 Close
               </span>
               <div className="relative w-8 h-8 flex items-center justify-center">
-                <div className="absolute w-8 h-px bg-light group-hover:bg-[#CC44FF] transition-colors rotate-45" />
-                <div className="absolute w-8 h-px bg-light group-hover:bg-[#CC44FF] transition-colors -rotate-45" />
+                <div className="absolute w-8 h-px bg-light group-hover:bg-[#9200FF] transition-colors rotate-45" />
+                <div className="absolute w-8 h-px bg-light group-hover:bg-[#9200FF] transition-colors -rotate-45" />
               </div>
             </button>
 
@@ -99,7 +99,7 @@ export default function Navbar({ onNav }) {
                       </span>
                       <span 
                         className="font-sans font-bold text-5xl md:text-8xl tracking-[-0.02em] transition-colors duration-500"
-                        style={{ color: isActive ? '#CC44FF' : '#EDE6F5' }}
+                        style={{ color: isActive ? '#9200FF' : '#EDE6F5' }}
                       >
                         {l.label}
                       </span>
