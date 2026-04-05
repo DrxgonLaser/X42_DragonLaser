@@ -26,20 +26,17 @@ export default function IrisShutter({ isActive, onMidpoint }) {
     const cx = W / 2, cy = H / 2
     const DIAG = Math.hypot(W, H)
 
-    // Pre-calculate the cyber-grid texture once
-    const patCanvas = document.createElement('canvas')
-    patCanvas.width = 24
-    patCanvas.height = 24
-    const pCtx = patCanvas.getContext('2d')
-    pCtx.fillStyle = '#0a0012' // Super deep base
-    pCtx.fillRect(0,0,24,24)
-    // Micro wireframe
-    pCtx.fillStyle = 'rgba(74, 0, 128, 0.15)'
-    pCtx.fillRect(0, 0, 1, 24)
-    pCtx.fillRect(0, 0, 24, 1)
-    // Intersection glowing diode
-    pCtx.fillStyle = 'rgba(138, 0, 255, 0.3)'
-    pCtx.fillRect(0, 0, 2, 2)
+    // Generate physical carbon-fiber/titanium micro-weave texture
+    const texCanvas = document.createElement('canvas')
+    texCanvas.width = 6
+    texCanvas.height = 6
+    const tCtx = texCanvas.getContext('2d')
+    tCtx.fillStyle = 'rgba(0,0,0,0.4)'
+    tCtx.fillRect(0,0,3,3)
+    tCtx.fillRect(3,3,3,3)
+    tCtx.fillStyle = 'rgba(255,255,255,0.05)'
+    tCtx.fillRect(3,0,3,3)
+    tCtx.fillRect(0,3,3,3)
 
     let startTime = null
     let midpointFired = false
@@ -55,62 +52,99 @@ export default function IrisShutter({ isActive, onMidpoint }) {
       ctx.globalCompositeOperation = 'source-over'
       ctx.clearRect(0, 0, W, H)
 
-      const techPattern = ctx.createPattern(patCanvas, 'repeat')
+      const weavePattern = ctx.createPattern(texCanvas, 'repeat')
 
-      for (let i = 0; i < N_BLADES; i++) {
-        const baseAngle = (i * 2 * Math.PI) / N_BLADES
-        // The distance d scales down as progress approaches 1
-        const d = DIAG * 0.55 * (1 - progress)
-        const rot = baseAngle + (1 - progress) * (Math.PI / 1.5) // Increased rotation torque
+      // Mathematically perfect geometric N-gon aperture
+      // The hole snaps shut exponentially, twisting 90 degrees
+      const r = DIAG * 0.75 * Math.pow((1 - progress), 2)
+      const rotPhase = progress * Math.PI * 0.5 
 
-        ctx.save()
-        ctx.translate(cx, cy)
-        ctx.rotate(rot)
+      ctx.save()
+      ctx.translate(cx, cy)
 
-        // Generate blade path
+      for (let i = 0; i <= N_BLADES; i++) {
+        const a1 = (i * 2 * Math.PI) / N_BLADES
+        const a2 = ((i + 1) * 2 * Math.PI) / N_BLADES
+        
+        // Inner vertices (twisting)
+        const inA = { x: Math.cos(a1 + rotPhase) * r, y: Math.sin(a1 + rotPhase) * r }
+        const inB = { x: Math.cos(a2 + rotPhase) * r, y: Math.sin(a2 + rotPhase) * r }
+        
+        // Outer vertices (locked identically to screen bounds)
+        const outC = { x: Math.cos(a2) * DIAG, y: Math.sin(a2) * DIAG }
+        const outD = { x: Math.cos(a1) * DIAG, y: Math.sin(a1) * DIAG }
+        
+        // 1. Draw perfectly symmetric interlocking quad mesh
         ctx.beginPath()
-        ctx.moveTo(-DIAG, d)
-        ctx.lineTo(DIAG,  d)
-        ctx.lineTo(DIAG,  DIAG)
-        ctx.lineTo(-DIAG, DIAG)
+        ctx.moveTo(inA.x, inA.y)
+        ctx.lineTo(inB.x, inB.y)
+        ctx.lineTo(outC.x, outC.y)
+        ctx.lineTo(outD.x, outD.y)
         ctx.closePath()
 
-        // Apply grid texture fill with parallax (matrix reset so pattern doesn't rotate)
+        // 2. High-fidelity glass gradient
+        const grad = ctx.createLinearGradient(inA.x, inA.y, outD.x, outD.y)
+        grad.addColorStop(0, '#020005') // Absolute black core
+        grad.addColorStop(0.5, '#0b001a')
+        grad.addColorStop(1, '#1d0033') // Violet structural bevel
+        ctx.fillStyle = grad
+        
+        // Apply heavy 3D volumetric drop shadow to make blades physically POP over each other
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.95)'
+        ctx.shadowBlur = 40
+        ctx.shadowOffsetX = Math.cos(a2 + Math.PI/2) * 15
+        ctx.shadowOffsetY = Math.sin(a2 + Math.PI/2) * 15
+
+        ctx.globalAlpha = 1
+        ctx.globalCompositeOperation = 'source-over'
+        ctx.fill()
+
+        // Apply geometric carbon fiber texture directly onto the blade face over the gradient
+        ctx.globalCompositeOperation = 'lighten'
+        ctx.fillStyle = weavePattern
+        // We set local transform so the carbon grain follows the rotation angle of the blade!
         ctx.save()
-        ctx.setTransform(1, 0, 0, 1, 0, 0)
-        ctx.fillStyle = techPattern
-        ctx.globalAlpha = 0.98
+        ctx.translate(inA.x, inA.y) // pivot on the inner vertex point
+        ctx.rotate(a1 + rotPhase)
         ctx.fill()
         ctx.restore()
-
-        // Inner glowing laser edge
-        // The "laser" runs along the exact closing lip (-DIAG, d) to (DIAG, d)
-        ctx.beginPath()
-        ctx.moveTo(-DIAG, d)
-        ctx.lineTo(DIAG,  d)
         
+        ctx.globalCompositeOperation = 'source-over'
+        
+        // Remove shadow for the strokes
+        ctx.shadowColor = 'transparent'
+        ctx.shadowBlur = 0
+        ctx.shadowOffsetX = 0
+        ctx.shadowOffsetY = 0
+
+        // 3. Draw structural wireframe framework (The Beveled Edge)
         ctx.globalCompositeOperation = 'screen'
         
-        // Intense optical bloom core
+        // Intense Leading Edge Bevel Highlight
+        ctx.beginPath()
+        ctx.moveTo(inA.x, inA.y)
+        ctx.lineTo(outD.x, outD.y)
+        // Hard inner core 1px slice
         ctx.strokeStyle = '#ffffff'
         ctx.lineWidth = 1
-        ctx.globalAlpha = Math.min(progress * 1.5, 1)
+        ctx.globalAlpha = 0.8
         ctx.stroke()
-        
-        // Outer magenta/purple neon spread
+        // Outer neon bleed
         ctx.strokeStyle = '#9200FF'
-        ctx.lineWidth = 4 + (progress * 6)
-        ctx.globalAlpha = Math.min(progress * 0.8, 0.8)
+        ctx.lineWidth = 2 + (progress * 4) 
+        ctx.globalAlpha = 0.6
         ctx.stroke()
 
-        // Ultra wide faint background glow
-        ctx.strokeStyle = '#4A0080'
-        ctx.lineWidth = 15 + (progress * 10)
-        ctx.globalAlpha = Math.min(progress * 0.3, 0.3)
+        // Inner polygon hole (Aperture Laser Ring)
+        ctx.beginPath()
+        ctx.moveTo(inA.x, inA.y)
+        ctx.lineTo(inB.x, inB.y)
+        ctx.strokeStyle = '#ffffff'
+        ctx.lineWidth = 2 + (progress * 5)
+        ctx.globalAlpha = 0.95
         ctx.stroke()
-
-        ctx.restore()
       }
+      ctx.restore()
 
       // Singularity Flash at the exact center when blades converge
       if (progress > 0.85) {

@@ -187,6 +187,36 @@ export default function LaserBackground() {
     let lastTime   = performance.now()
     let rafId
 
+    function drawPlasma(ctx, W, H, time) {
+      ctx.globalCompositeOperation = 'screen'
+      // 12 topographical sharp scanner lines
+      const count = 12
+      const spacing = H / count
+      
+      for(let i = 0; i <= count; i++) {
+        ctx.beginPath()
+        ctx.lineWidth = 1
+        // Sharp neon plasma glow with very low alpha
+        ctx.strokeStyle = `rgba(146, 0, 255, 0.08)` 
+        
+        const baseY = i * spacing
+        
+        for(let x = 0; x <= W; x += 30) {
+          // Complex tri-tone interference waves
+          const p1 = Math.sin((x * 0.002) + (time * 0.4) + i) * (H * 0.05)
+          const p2 = Math.cos((x * 0.005) - (time * 0.6) + (i * 0.5)) * (H * 0.03)
+          // Micro-ripple frequency
+          const p3 = Math.sin((x * 0.02) + (time * 1.5)) * 5
+          
+          const y = baseY + p1 + p2 + p3
+          
+          if(x === 0) ctx.moveTo(x, y)
+          else ctx.lineTo(x, y)
+        }
+        ctx.stroke()
+      }
+    }
+
     function frame(now) {
       const dt = Math.min((now - lastTime) / 1000, 0.05)
       lastTime  = now
@@ -195,6 +225,9 @@ export default function LaserBackground() {
       ctx.globalAlpha = 1
       ctx.fillStyle   = 'rgba(7, 3, 8, 0.15)' // slightly harder fade for cleaner tails
       ctx.fillRect(0, 0, W, H)
+
+      // Render the sharp topological hologram grid
+      drawPlasma(ctx, W, H, now / 1000)
 
       dust.forEach(d => { d.update(dt); d.draw(ctx) })
 

@@ -15,6 +15,19 @@ export default function Contact() {
   const onChange = e => setForm({ ...form, [e.target.name]: e.target.value })
   const onSubmit = e => {
     e.preventDefault()
+    
+    // Constructing the direct mailto string with form encoding
+    const subject = encodeURIComponent(`DragonLaser Project - ${form.project}`)
+    const body = encodeURIComponent(
+      `Name: ${form.name}\n` +
+      `Email Reference: ${form.email}\n` +
+      `Project Scope: ${form.project}\n\n` +
+      `---------------------------------\n` +
+      `Message:\n${form.message}`
+    )
+    
+    window.location.href = `mailto:blendergobrrr@proton.me?subject=${subject}&body=${body}`
+    
     setSent(true)
     setForm({ name: '', email: '', project: '', message: '' })
     setTimeout(() => { setSent(false); setShowForm(false); }, 4000)
@@ -48,7 +61,7 @@ export default function Contact() {
             className="font-sans font-bold text-5xl md:text-8xl lg:text-[8rem] leading-[0.9] text-light tracking-tighter hover:text-electric transition-colors duration-500 cursor-none"
             onMouseEnter={() => enterElement('text', 'MAIL')}
             onMouseLeave={leaveElement}
-            onClick={() => window.location.href = 'mailto:hello@dragonlaser.vfx'}
+            onClick={() => window.location.href = 'mailto:blendergobrrr@proton.me'}
           >
             SAY <br className="md:hidden" /> HELLO
           </h2>
