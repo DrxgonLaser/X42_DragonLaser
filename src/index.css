@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Nasalization';
+  src: url('/resources/font/nasalization-rg.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: 'Nasalization', sans-serif !important;
+}
+
+:root {
+  --bg:       #070308;
+  --surface:  #0F0612;
+  --dp:       #38173A;
+  --mid:      #6A1F78;
+  --vivid:    #A030C0;
+  --electric: #CC44FF;
+  --magenta:  #FF33CC;
+  --light:    #EDE6F5;
+  --muted:    #7A6882;
+}
+
+html {
+  /* No smooth scroll — we're page-based, not scroll-based */
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--light);
+  font-family: 'Nasalization', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Page root clips to viewport — sections are pages not scrollable views */
+.app-root {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Individual section pages can scroll internally if content overflows */
+section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Thin scrollbar for overflowing page content */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--dp); border-radius: 2px; }
+
+/* Thin dividers */
+.divider { height: 1px; background: linear-gradient(90deg, transparent, var(--dp), transparent); }
+
+/* Glass card - ultra-minimalist and premium */
+.card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Accent line */
+.accent-line {
+  display: inline-block;
+  height: 2px;
+  width: 32px;
+  background: var(--electric);
+  border-radius: 1px;
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--electric) 0%, var(--magenta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tag / label */
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Button primary - elegant and sharp */
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.8rem 2rem;
+  background: var(--electric);
+  color: var(--surface);
+  font-weight: 700;
+  border: 1px solid var(--electric);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background: transparent;
+  color: var(--electric);
+  box-shadow: 0 0 15px rgba(204, 68, 255, 0.3);
+}
+
+/* Button outline - elegant and sharp */
+.btn-outline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.8rem 2rem;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  border-color: var(--electric);
+  color: var(--electric);
+}
+
+/* Masonry columns helper */
+.columns-gallery {
+  column-count: 2;
+  column-gap: 0.75rem;
+}
+@media (min-width: 768px)  { .columns-gallery { column-count: 3; } }
+@media (min-width: 1280px) { .columns-gallery { column-count: 4; } }
