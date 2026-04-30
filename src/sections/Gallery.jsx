@@ -4,6 +4,7 @@ import { useCursor } from '../context/CursorContext'
 
 const IMAGES = [
   '/resources/Gallery/AI Spire 2.webp',
+  '/resources/Gallery/AbstractRock.webp',
   '/resources/Gallery/AllWillFall1.webp',
   '/resources/Gallery/Aquifiers.webp',
   '/resources/Gallery/BONSAIIIIIIIIIII1.webp',
@@ -16,6 +17,7 @@ const IMAGES = [
   '/resources/Gallery/Brix2.webp',
   '/resources/Gallery/CBroadside_155.webp',
   '/resources/Gallery/Captured Worlds.webp',
+  '/resources/Gallery/Cin3.webp',
   '/resources/Gallery/Concrete1Finished.webp',
   '/resources/Gallery/ConcreteFinished.webp',
   '/resources/Gallery/Desktop.webp',
@@ -28,8 +30,10 @@ const IMAGES = [
   '/resources/Gallery/IsoCircuit.webp',
   '/resources/Gallery/JewelledSpider.webp',
   '/resources/Gallery/LadybugRealistic.webp',
+  '/resources/Gallery/Liminal Cloud City.webp',
   '/resources/Gallery/Lore Item.webp',
   '/resources/Gallery/LuxPoolside.webp',
+  '/resources/Gallery/OceanSpireFull.webp',
   '/resources/Gallery/Paragon Sniper base.webp',
   '/resources/Gallery/Planet.webp',
   '/resources/Gallery/RandomInstanceColor.webp',
@@ -38,6 +42,7 @@ const IMAGES = [
   '/resources/Gallery/SigilRock.webp',
   '/resources/Gallery/Skele.webp',
   '/resources/Gallery/SnowSat.webp',
+  '/resources/Gallery/SolarFlower.webp',
   '/resources/Gallery/Stylized Star Pendant.webp',
   '/resources/Gallery/Synthetic SKR MKI.webp',
   '/resources/Gallery/TentacleGeo Setup1.webp',
@@ -53,6 +58,7 @@ const VIDEOS = [
   { src: '/resources/Gallery/CubePulseV20000-0130.mp4',  name: 'Cube Pulse' },
   { src: '/resources/Gallery/MapPath0000-0220.mp4',       name: 'Map Path' },
   { src: '/resources/Gallery/Particle Accelerator.mp4',   name: 'Particle Accelerator' },
+  { src: '/resources/Gallery/TransformFX Showcase0001-0240.mp4', name: 'TransformFX Showcase' },
 ]
 
 const BASE_IMAGES = IMAGES.map(src => ({ src, name: src.split('/').pop().replace('.webp', ''), type: 'image' }))
@@ -62,6 +68,7 @@ const ALL_ITEMS = [...BASE_IMAGES]
 ALL_ITEMS.splice(2, 0, BASE_VIDEOS[0])
 ALL_ITEMS.splice(5, 0, BASE_VIDEOS[1])
 ALL_ITEMS.splice(8, 0, BASE_VIDEOS[2])
+ALL_ITEMS.splice(12, 0, BASE_VIDEOS[3])
 
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } } }
 
